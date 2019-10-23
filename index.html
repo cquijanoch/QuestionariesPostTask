@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMEQ AND EMOCARDS</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<body>
+  <h1><input type="text" id="user"></h1>
+  <h2 style="text-align: center;"> Quão difícil ou fácil foi concluir a tarefa? </h2>
+
+  <div class="row">
+    <div class="column-43">
+
+    </div>
+    <div class="column-3">
+      <table class="number">
+        <tr>
+          <td>150 -</td>
+        </tr>
+        <tr>
+          <td>140 -</td>
+        </tr>
+        <tr>
+          <td>130 -</td>
+        </tr>
+        <tr>
+          <td>120 -</td>
+        </tr>
+        <tr>
+          <td>110 -</td>
+        </tr>
+        <tr>
+          <td>100 -</td>
+        </tr>
+        <tr>
+          <td>90 -</td>
+        </tr>
+        <tr>
+          <td>80 -</td>
+        </tr>
+        <tr>
+          <td>70 -</td>
+        </tr>
+        <tr>
+          <td>60 -</td>
+        </tr>
+        <tr>
+          <td>50 -</td>
+        </tr>
+        <tr>
+          <td>40 -</td>
+        </tr>
+        <tr>
+          <td>30 -</td>
+        </tr>
+        <tr>
+          <td>20 -</td>
+        </tr>
+        <tr>
+          <td>10 -</td>
+        </tr>
+        <tr>
+          <td>0 -</td>
+        </tr>
+      </table>
+    </div>
+    <div class="column-1">
+      <div id="slider-vertical" style="height:702px;"></div>
+    </div>
+    <div class="column-20">
+      <table class="definition">
+        <tr>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="height: 8px;"></td>
+        </tr>
+        <tr>
+          <td style="height: 22px;">- Tremendously hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 18px;">- Very, very hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 2px;"></td>
+        </tr>
+        <tr>
+          <td style="height: 32px;">- Very hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 26px;">- Pretty hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 3px; padding-top: 0px;"></td>
+        </tr>
+        <tr>
+          <td style="height: 19px;">- Rather hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 10px;"></td>
+        </tr>
+        <tr>
+          <td style="height: 28px;">- Fairly hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 18px;">- A bit hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 34px; padding-top: 10px;">- Not very hard to do</td>
+        </tr>
+        <tr>
+          <td style="height: 10px; padding-top: 0px;">- Not at all hard to do</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; padding-top: 300px;"> Quão difícil ou fácil foi concluir a tarefa? </h2>
+  <div class="row container">
+    
+    <label>
+      <input type="radio" name="radiotest" value="1">
+      <img src="data/1.png">
+    </label>
+
+    <label>
+      <input type="radio" name="radiotest" value="2">
+      <img src="data/2.png">
+    </label>
+    <label>
+      <input type="radio" name="radiotest" value="3">
+      <img src="data/3.png">
+    </label>
+    <label>
+      <input type="radio" name="radiotest" value="4">
+      <img src="data/4.png">
+    </label>
+
+    <label>
+      <input type="radio" name="radiotest" value="5">
+      <img src="data/5.png">
+    </label>
+    <label>
+      <input type="radio" name="radiotest" value="6">
+      <img src="data/6.png">
+    </label>
+    <label>
+      <input type="radio" name="radiotest" value="7">
+      <img src="data/7.png">
+    </label>
+    <label>
+      <input type="radio" name="radiotest" value="8">
+      <img src="data/8.png">
+    </label>
+  </div>
+  <h2 id = "notification" style="text-align: center;"></h2>
+  <div class="row" style="text-align: center;">
+    <button onclick="savePostTask()">Enviar</button>
+  </div>
+  
+</body>
+<script>
+  $(function () {
+    $("#slider-vertical").slider({
+      orientation: "vertical",
+      range: "min",
+      min: 0,
+      max: 153,
+      value: 0,
+      slide: function (event, ui) {
+        $("#amount").val(ui.value);
+      }
+    });
+    $("#amount").val($("#slider-vertical").slider("value"));
+  });
+
+  function savePostTask() {
+      var data = $("#slider-vertical").slider("value");
+      var radios = document.getElementsByName('radiotest');
+      var emocard = null;
+      var user = document.getElementById("user").value;
+      for (var i = 0, length = radios.length; i < length; i++)
+      {
+        if (radios[i].checked)
+        {
+          emocard = radios[i].value;
+          break;
+        }
+      }
+      
+      if (emocard === null)
+        alert("Emocard Fail");
+      else
+      {
+        if (localStorage.getItem(user) !== null)
+        {
+            alert("User already exists");
+            return;
+        }  
+        localStorage.setItem(user, data + " " + emocard);
+        document.getElementById("notification").innerHTML = "Enviado!";
+      }
+       
+      /**
+      var filename = 'test.txt';
+      var type = 'text/plain';
+      var file = new Blob([data], { type: type });
+      if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveBlob(file, filename);
+      else { // Others
+        var a = document.createElement("a"),
+          url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+
+     
+        /**if (document.createEvent) {
+          var event = document.createEvent('MouseEvents');
+          event.initEvent('click', true, true);
+          a.dispatchEvent(event);
+        }
+        else {
+          a.click();
+        }
+        a.click();
+       setTimeout(function () {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      }**/
+      
+   
+  }
+</script>
+</head>
+
+</html>
